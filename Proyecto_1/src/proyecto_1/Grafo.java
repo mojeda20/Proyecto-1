@@ -10,23 +10,48 @@ package proyecto_1;
  */
 public class Grafo {
     
-    //Atributos de la clase grafo
-    private ListaSimple vertices;
-    private ListaSimple lista_ady;
+    //Atributos de la clase
+    private boolean dirigido;
+    private int maxNodos;
+    private int numVertices;
+    private ListaSimple list_ady [];
     
-    //Constructores de la Clase Grafo
-    public Grafo() {
-        this.vertices = new ListaSimple();
-        this.lista_ady = new ListaSimple();
-    }
-
-    public Grafo(ListaSimple vertices, ListaSimple lista_ady) {
-        this.vertices = vertices;
-        this.lista_ady = lista_ady;
+    //Constructores de la clase 
+    public Grafo(boolean d) {
+        this.maxNodos = this.numVertices = 0;
+        this.dirigido = d;
     }
     
-    public void insertarElemento(Object dato){
-        Vertice new_vertice = new Vertice(dato);
-        vertices.InsertarFinal(new_vertice);
+    public Grafo(int n, boolean d) {
+        this.maxNodos = n;
+        this.numVertices = 0;
+        this.dirigido = d;
+        this.list_ady = new ListaSimple[n];
+    }
+    
+    public void imprimirGrafo(){
+        for (int i = 0; i < numVertices; i++) {
+            System.out.println("Vertice" + i + ": ");
+            list_ady[i].mostrar();
+        }
+    }
+    
+    public void insertarArista(int i, Object j){
+        if(i >= numVertices){
+            System.out.println("Error, no exise el vertice del grafo");
+        }else{
+            list_ady[i].InsertarFinal(j);
+        }
+    }
+    
+    public void insertarVertice(int n){
+        if(n >(maxNodos - numVertices)){
+            System.out.println("Se supera el numero de nodos maximo del grafo");
+        }else{
+            for (int i = numVertices; i < numVertices + n; i++) {
+                list_ady[i] = new ListaSimple();
+                numVertices += n;
+            }
+        }
     }
 }

@@ -15,6 +15,13 @@ public class Arista {
     private Vertice destino;
     private int peso;
     
+    //Constructor de la clase
+    public Arista(Vertice origen, Vertice destino, int peso) {
+        this.origen = origen;
+        this.destino = destino;
+        this.peso = peso;
+    }
+    
     //Getter and Setter
     public Vertice getOrigen() {
         return origen;
