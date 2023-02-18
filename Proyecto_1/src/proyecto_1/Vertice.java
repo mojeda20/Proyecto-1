@@ -13,13 +13,13 @@ public class Vertice {
     private Object[] element;
     private int numVertice;
 
-    public Vertice(String name, int cantElement, int numVertice) {
+    public Vertice(String name, int cantElement) {
         this.name = name;
         this.element = new Object[cantElement];
         this.numVertice = -1;
     }
     
-    public Vertice(String name, Object[] element, int numVertice) {
+    public Vertice(String name, Object[] element) {
         this.name = name;
         this.element = element;
         this.numVertice = -1;

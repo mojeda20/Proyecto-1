@@ -51,6 +51,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(titulo_mENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 70, 40));
 
         cargartxt.setText("Cargar Archivo");
+        cargartxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargartxtActionPerformed(evt);
+            }
+        });
         jPanel1.add(cargartxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
 
         gestion_info.setText("Gestion de Info.");
@@ -66,6 +71,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(mostrar_grafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, -1));
 
         exit.setText("X");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
         jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 50, 40));
 
         TITULO_Elaboracion.setText("Elaborado por: Valeria Carmona, José Hurtado y Moisés Liota");
@@ -75,6 +85,15 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitActionPerformed
+
+    private void cargartxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargartxtActionPerformed
+        Cargar_Datos v2 = new Cargar_Datos(this);
+        v2.setVisible(true);
+    }//GEN-LAST:event_cargartxtActionPerformed
 
     /**
      * @param args the command line arguments

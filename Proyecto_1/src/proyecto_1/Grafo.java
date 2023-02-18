@@ -28,7 +28,7 @@ public class Grafo {
     public void nuevoVertice(Vertice nom) {
         boolean esta = numVertice(nom) >= 0;
         if (!esta) {
-            Vertice v = new Vertice(nom.getName(), nom.getElement(), nom.getNumVertice());
+            Vertice v = new Vertice(nom.getName(), nom.getElement());
             v.asigVertice(numVerts);
             verts[numVerts++] = v;
             System.out.println("El vertil vertice ha sido agregado exitosamente.");
