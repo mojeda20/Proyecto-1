@@ -14,6 +14,8 @@ public class Grafo {
     private Vertice [] verts;
     private int [][] matAd;
     
+    
+    
     public Grafo(int mx){
         matAd = new int[mx][mx];
         verts = new Vertice[mx];
@@ -57,7 +59,7 @@ public class Grafo {
         if (va  < 0 || vb < 0) {
             throw new Exception("Vértice no existe");
         }
-        matAd[va][vb] = 1;
+        matAd[va][vb] = peso;
         return peso;
     }
     
@@ -66,6 +68,56 @@ public class Grafo {
         va  = numVertice(a);
         vb = numVertice(b);
         if (va < 0 || vb < 0) throw new Exception ("Vértice no existe");
-        return matAd[va][vb] == 1;
+        return matAd[va][vb] != 0;
+    }
+    
+    public int devolverPeso(Vertice a, Vertice b) throws Exception{
+        if(adyacente(a,b)){
+            int va = numVertice(a);
+            int vb = numVertice(b); 
+            
+            for (int i = 0; i < numVerts; i++) {
+               for (int j= 0; j < numVerts; j++) {
+                   if(i == va && j == vb){
+                       return matAd[i][j];
+                   }
+                } 
+            }
+                    
+        }
+        
+        return -1;
+    }
+
+    public int getNumVerts() {
+        return numVerts;
+    }
+
+    public void setNumVerts(int numVerts) {
+        this.numVerts = numVerts;
+    }
+
+    public int getMaxVerts() {
+        return MaxVerts;
+    }
+
+    public void setMaxVerts(int MaxVerts) {
+        this.MaxVerts = MaxVerts;
+    }
+
+    public Vertice[] getVerts() {
+        return verts;
+    }
+
+    public void setVerts(Vertice[] verts) {
+        this.verts = verts;
+    }
+
+    public int[][] getMatAd() {
+        return matAd;
+    }
+
+    public void setMatAd(int[][] matAd) {
+        this.matAd = matAd;
     }
 }

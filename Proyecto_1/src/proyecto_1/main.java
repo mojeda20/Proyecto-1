@@ -4,6 +4,9 @@
  */
 package proyecto_1;
 
+import Ventanas.Principal;
+import java.util.Arrays;
+
 /**
  *
  * @author moise
@@ -14,6 +17,10 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
+//        Principal v1 = new Principal();
+//        v1.setVisible(true);
+
+        
         Grafo grafo = new Grafo(5);
 
         String nombre_v1 = "Almacen A:";
@@ -36,6 +43,16 @@ public class main {
         System.out.println(grafo.numVertice(v3));
 
         grafo.nuevoArco(v1, v2,15);
+        grafo.nuevoArco(v3, v2, 30);
+        
+        System.out.println(grafo.adyacente(v1, v2));
+        System.out.println(grafo.adyacente(v2, v1));
+        System.out.println(grafo.devolverPeso(v1, v2));
+        System.out.println(grafo.devolverPeso(v3, v2));
+        
+        Arrays.toString(grafo.getMatAd());
+
+
 
 //        int num = 1;
 //        int num_repro = 1003443;
