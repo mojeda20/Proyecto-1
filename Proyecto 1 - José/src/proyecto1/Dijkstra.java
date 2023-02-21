@@ -14,12 +14,12 @@ public class Dijkstra {
     private int numVert;
 
     public Dijkstra(Grafo grafo, int origin) {
-        this.distances = grafo.matDistances();
+        this.distances = grafo.getMatAd();
         this.last = new int[numVert];
         this.minorDist = new int[numVert];
         this.vertices = new boolean[numVert];
         this.origin = origin;
-        this.numVert = grafo.numVertices();
+        this.numVert = grafo.getNumVerts();
     }
     
     public void shorterPath(){
@@ -45,7 +45,7 @@ public class Dijkstra {
     }
     
     public int minimum(){ /*Retorna el vértice con el camino más corto*/
-        int mx = grafo.infinito();
+        int mx = 10000;
         int v = 1;
         for (int i = 0; i < numVert; i++) {
             if (!vertices[i] && (minorDist[i] <= mx)){
@@ -56,18 +56,8 @@ public class Dijkstra {
         return v;
     }
     
-    public int[][] matDistances(Grafo grafo){
-        int t = grafo.numVertices();
-        distances = new int[t][t];
-        for (int i = 0; i < t; i++) {
-            for (int j = 0; j < t; j++) {
-                distances[i][j] = grafo.costoArco(i, j);
-            }
-        }
-        return distances;
-    }
     
-    public void path(int v){
+    public void path(int v){ /*Recibe como parámetro el vector al que se quiere ir*/
         int previous = last[v];
         if (v != origin){
             path(previous);
@@ -75,5 +65,5 @@ public class Dijkstra {
         } else{
             System.out.print("V" + origin);
         }
-    }
+    }  
 }
