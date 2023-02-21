@@ -10,16 +10,18 @@ public class Dijkstra2 {
     int camino[];
     boolean visitado[];
     int[][]graf;
+    int origin;
  
-    public void dijks(Grafo grafo){
+    public void dijks(Grafo grafo, int origin){
     	this.costo = new int[grafo.getNumVerts()];
     	this.camino = new int[grafo.getNumVerts()];
     	this.visitado = new boolean[grafo.getNumVerts()];
     	this.graf = grafo.getMatAd();
+        this.origin = origin-1;
 
-    	visitado[0] = true;
-	camino[0] = 1;
-	costo[0] = 0;
+    	visitado[origin] = true;
+	camino[origin] = 1;
+	costo[origin] = 0;
     }
  
  
@@ -36,11 +38,11 @@ public class Dijkstra2 {
     public int indi(int nver){
         int aux = 10000;
 	int in = 0;
-	for (int i = 1; i < nver; i++){
+	for (int i = 0; i < nver; i++){
 	    if (visitado[i] == false){
-		if (costo[i]<aux){
-		    aux=costo[i];
-		    in=i;
+		if (costo[i] < aux){
+		    aux = costo[i];
+		    in = i;
 	        }
             }
 	}
@@ -51,9 +53,9 @@ public class Dijkstra2 {
 	int i;
 	int j = 0;
 	int ind = 0;
-	for(i = 1; i < nver; i++){
+	for(i = 0; i < nver; i++){
 	    visitado[i] = false;
-	    costo[i] = graf[0][i];
+	    costo[i] = graf[origin][i];
 	    camino[i] = 0;
 	}
 	for (i = 0; i < nver; i++){
@@ -63,7 +65,7 @@ public class Dijkstra2 {
 		for (j = 0; j < nver; j++){
 		    if (graf[ind][j] != 10000){
 			if (visitado[j] == false){
-			    if ((costo[ind] + graf[ind][j]) <costo[j]){
+			    if ((costo[ind] + graf[ind][j]) < costo[j]){
 				costo[j] = costo[ind] + graf[ind][j];
 				camino[j] = ind;
 			    }
@@ -77,14 +79,14 @@ public class Dijkstra2 {
     public void camin(int ver){
         if (ver != 0){
 	    camin(camino[ver]);
-	    System.out.print(" "+(ver+1)+",");
+	    System.out.print(" "+(ver+1)+" ->");
         }    
     }
  
     public void Imprime(int nver){
 	System.out.println("\nDirección y caminos mínimos para cada vértice\n");
-	for (int i = 1; i < nver; i++){
-	    System.out.print("\t De 1 a "+(i+1)+" =");
+	for (int i = 0; i < nver; i++){
+	    System.out.print("\t De "+(origin+1)+" a "+(i+1)+" =");
 	    camin(i);
 	    System.out.print(" = "+costo[i]+"\n");
 			//System.out.println("\n");
@@ -92,9 +94,9 @@ public class Dijkstra2 {
     }
     
     public void Path(int destiny){
-        System.out.println("Camino mínimo para llegar al vértice "+destiny);
-        System.out.print("\t De 1 a "+(destiny)+" =");
-        camin(destiny);
-        System.out.print(" = "+costo[destiny]+"\n");
+        System.out.println("\nCamino mínimo para llegar al vértice "+(destiny));
+        System.out.print("\t De "+(origin+1)+ " a "+(destiny)+" =");
+        camin(destiny-1);
+        System.out.print(" = "+costo[destiny-1]+"\n");
     }
 }    

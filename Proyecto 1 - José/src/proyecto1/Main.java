@@ -27,16 +27,26 @@ public class Main {
         
         grafo.nuevoArco(a, b, 10);
         grafo.nuevoArco(a, c, 20);
-        grafo.nuevoArco(a, d, 25);
+        grafo.nuevoArco(b, d, 8);
         grafo.nuevoArco(b, c, 5);
+        grafo.nuevoArco(c, e, 13);
+        grafo.nuevoArco(c, d, 4);
+        grafo.nuevoArco(d, e, 3);
+        grafo.nuevoArco(e, a, 25);
         
-//        PARA USAR EL DIJKSTRA DE Example
+//        1 = A
+//        2 = B
+//        3 = C
+//        4 = D
+//        5 = E
+        
+//        PARA USAR EL DIJKSTRA DE Dijkstra2
         Dijkstra2 caminito = new Dijkstra2();
-        caminito.dijks(grafo);
+        caminito.dijks(grafo, 1);
 	caminito.infin(grafo.getNumVerts());
 	caminito.dijks1(grafo.getNumVerts());
 	caminito.Imprime(grafo.getNumVerts());
-        caminito.Path(2);
+        caminito.Path(5);
           
     }
     
