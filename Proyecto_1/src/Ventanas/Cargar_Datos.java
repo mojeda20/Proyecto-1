@@ -4,12 +4,18 @@
  */
 package Ventanas;
 
+import static Ventanas.Principal.func;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import proyecto_1.Grafo;
+import proyecto_1.Stock_produc;
+import proyecto_1.Vertice;
+import proyecto_1.helpers;
 
 /**
  *
@@ -135,7 +141,63 @@ public class Cargar_Datos extends javax.swing.JFrame {
     }//GEN-LAST:event_Buscar_ArchivoActionPerformed
 
     private void cargar_grafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargar_grafoActionPerformed
-
+        String archivo_txt = Archivo_Cargado.getText();
+        
+        //Repleace pertinentes para poder realizar una funcion que descomponga en el txt
+        String replace = archivo_txt.replaceAll("Rutas;", "&");
+        JOptionPane.showMessageDialog(null, replace);
+        
+        String txt = replace.replaceAll("Almacenes;", "&");
+        JOptionPane.showMessageDialog(null, txt);
+        
+        //Descomponer el txt, de aquí hasta el final será el contendio de la funcion crear grafo a partir de un txt dado
+        String[] info = txt.split("&");
+        
+        String[] info_almacenes = info[1].split(";");
+        
+        Grafo grafo = new Grafo(info_almacenes.length);
+        helpers help = new helpers();
+        
+        //Crear el grafo
+        for (int i = 0; i < info_almacenes.length - 1; i++) {
+            String[] almacen = info_almacenes[i].split(":");
+            String name = almacen[0].replaceAll("Almacen ", ""); //Nombre del vertice que se creará
+            
+            //Crear productos los cuales representaran el arreglo de objetos que contendrá el grafo
+            String[] productos = almacen[1].split("\n");
+            
+            //Crear el arreglo de objetos que contendrá el vertice
+            Stock_produc[] product = new Stock_produc[productos.length];
+            for (int j = 1; j < productos.length; j++) {
+                String[] info_produc = productos[j].split(",");
+                String nombre = info_produc[0];
+                int cantidad = help.ValidarNumeros(info_produc[1]);
+                
+                //Crear el objeto que irá al arreglo contenido en el vertice
+                Stock_produc stock1 = new Stock_produc(nombre, cantidad);
+                
+                //Agg el objeto al arreglo
+                product[j-1] = stock1;
+            }
+            
+            //Crear el vertice con el nombre y el arreglo previamente creado
+            Vertice v = new Vertice(name, product);
+            
+            //Meter el vertice en el grafo
+            grafo.nuevoVertice(v);
+        }
+        
+        //Crear las aristas luego de haber creado el grafo con sus vertices
+        String[] info_rutas = info[2].split(";");
+        for (int i = 0; i < info_rutas.length; i++) {
+            String[] ruta = info_rutas[i].split(",");
+            String vertice1 = ruta[0];
+            String vertice2 = ruta[1];
+            int peso = help.ValidarNumeros(ruta[2]);
+//            if(){
+//            
+//            }
+        }
     }//GEN-LAST:event_cargar_grafoActionPerformed
 
     /**

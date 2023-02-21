@@ -49,8 +49,11 @@ public class main {
         System.out.println(grafo.adyacente(v2, v1));
         System.out.println(grafo.devolverPeso(v1, v2));
         System.out.println(grafo.devolverPeso(v3, v2));
+        System.out.println(grafo.nombreVertice(v3));
         
-        Arrays.toString(grafo.getMatAd());
+        
+//        
+//        Arrays.toString(grafo.getMatAd());
 
 
 

@@ -25,7 +25,7 @@ public class Grafo {
             }
         }
         numVerts = 0;
-    }  
+    }
     
     public void nuevoVertice(Vertice nom) {
         boolean esta = numVertice(nom) >= 0;
@@ -50,6 +50,27 @@ public class Grafo {
             }
         }
         return (i < numVerts) ? i : -1;
+    }
+    
+    public Vertice vertice(int posicion){
+        if(posicion <= this.getNumVerts()){
+            Vertice v = this.getVerts()[posicion];
+            return v;
+        }
+        return null;
+    }
+    
+    public String nombreVertice(Vertice vs) {
+        Vertice v = new Vertice(vs.getName(), vs.getElement());
+        boolean encontrado = false;
+        int i = 0;
+        for (; (i < numVerts) && !encontrado;) {
+            encontrado = verts[i].getName().equals(v.getName());
+            if (!encontrado) {
+                i++;
+            }
+        }
+        return (i < numVerts) ? vs.getName() : null;
     }
     
     public int nuevoArco(Vertice a, Vertice b, int peso) throws Exception {

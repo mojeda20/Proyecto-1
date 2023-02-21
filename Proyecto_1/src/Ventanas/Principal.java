@@ -4,17 +4,22 @@
  */
 package Ventanas;
 
+import proyecto_1.Funciones;
+import proyecto_1.Grafo;
+
 /**
  *
  * @author moise
  */
 public class Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Principal
-     */
+    public static Grafo grafo;
+    public static Funciones func;
+    
     public Principal() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);  
     }
 
     /**
