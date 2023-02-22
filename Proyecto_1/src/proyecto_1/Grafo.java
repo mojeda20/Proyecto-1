@@ -60,7 +60,16 @@ public class Grafo {
         return null;
     }
     
-    public String nombreVertice(Vertice vs) {
+    public Vertice nombre_vertice(String name){
+        for (int i = 0; i < getNumVerts(); i++) {
+            if(verts[i].getName().equalsIgnoreCase(name)){
+                return verts[i];
+            }
+        }
+        return null;
+    }
+    
+        public String nombreVertice(Vertice vs) {
         Vertice v = new Vertice(vs.getName(), vs.getElement());
         boolean encontrado = false;
         int i = 0;
@@ -73,12 +82,12 @@ public class Grafo {
         return (i < numVerts) ? vs.getName() : null;
     }
     
-    public int nuevoArco(Vertice a, Vertice b, int peso) throws Exception {
+    public int nuevoArco(Vertice a, Vertice b, int peso){
         int va,vb;
         va  = numVertice(a);
         vb = numVertice(b);
         if (va  < 0 || vb < 0) {
-            throw new Exception("Vértice no existe");
+            return -1;
         }
         matAd[va][vb] = peso;
         return peso;

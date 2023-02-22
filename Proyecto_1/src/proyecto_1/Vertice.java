@@ -4,6 +4,8 @@
  */
 package proyecto_1;
 
+import java.util.Arrays;
+
 /**
  *
  * @author moise
@@ -62,4 +64,11 @@ public class Vertice {
     public void asigVertice(int n){
         numVertice = n;
     }
+
+    @Override
+    public String toString() {
+        return "Vertice{" + "name=" + name + ", element" + Arrays.toString(element) + ", numVertice=" + numVertice + '}';
+    }
+    
+    
 }
