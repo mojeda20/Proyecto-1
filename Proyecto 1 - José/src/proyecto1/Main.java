@@ -41,12 +41,12 @@ public class Main {
 //        5 = E
         
 //        PARA USAR EL DIJKSTRA DE Dijkstra
-        Dijkstra caminito = new Dijkstra(grafo, 5);
+        Dijkstra caminito = new Dijkstra(grafo, 4);
         caminito.dijksInit();
 	caminito.infinity(grafo.getNumVerts());
 	caminito.shorterPath(grafo.getNumVerts());
 	caminito.printPaths(grafo.getNumVerts());
-        caminito.Path(3);
+        caminito.Path(1);
     }
     
 }

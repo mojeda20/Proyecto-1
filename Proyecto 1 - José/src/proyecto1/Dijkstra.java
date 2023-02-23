@@ -42,7 +42,7 @@ public class Dijkstra {
     public int indi(int nver){
         int aux = 10000;
 	int in = 0;   
-	for (int i = 0; i < nver; i++){ /*Inicial i = 0*/
+	for (int i = 0; i < nver; i++){ 
 	    if (visited[i] == false){
 		if (distances[i] < aux){
 		    aux = distances[i];
@@ -60,13 +60,13 @@ public class Dijkstra {
         for(int i = 0; i < nver; i++){
 	        visited[i] = false;
 	        distances[i] = grafo[origin][i];
-	        route[i] = 0;
+	        route[i] = origin; /*Inicial route[i] = 0*/
             }
-	    for (int i = 0; i < nver; i++){ /*PROBANDO || inicial = 0*/
+	    for (int i = 0; i < nver; i++){ 
 	        ind = indi(nver);
-	        if (ind != origin){ /*VALOR INICIAL = 0*/
+	        if (ind != origin){ 
 	            visited[ind] = true;
-		    for (j = 0; j < nver; j++){ /*NO CAMBIAR j = 0*/
+		    for (j = 0; j < nver; j++){ 
 		        if (grafo[ind][j] != 10000){
 			    if (visited[j] == false){
 			        if ((distances[ind] + grafo[ind][j]) < distances[j]){
@@ -82,7 +82,7 @@ public class Dijkstra {
 
     /*Retorna los vértices que se visitan en la ruta más corta para llegar del vértice al destino*/
     public void returnPath(int ver){
-        if (ver != 0){
+        if (ver != origin){ /*ver != 0*/
 	    returnPath(route[ver]);
 	    System.out.print(" "+(ver+1)+" ->");
         }    
@@ -100,8 +100,8 @@ public class Dijkstra {
     
     /*Recibe un vértice destino y muestra solo la ruta y la distancia para llegar hasta ese vértice*/
     public void Path(int destiny){
-        System.out.println("\nCamino mínimo para llegar al vértice "+(destiny));
-        System.out.print("\t De "+(origin+1)+ " a "+(destiny)+" =");
+        System.out.println("\nCamino más corto para llegar al vértice "+(destiny));
+        System.out.print("\t Desde "+(origin+1)+ " -->");
         returnPath(destiny-1);
         System.out.print(" = "+distances[destiny-1]+"\n");
     }
