@@ -40,14 +40,13 @@ public class Main {
 //        4 = D
 //        5 = E
         
-//        PARA USAR EL DIJKSTRA DE Dijkstra2
-        Dijkstra2 caminito = new Dijkstra2();
-        caminito.dijks(grafo, 1);
-	caminito.infin(grafo.getNumVerts());
-	caminito.dijks1(grafo.getNumVerts());
-	caminito.Imprime(grafo.getNumVerts());
-        caminito.Path(5);
-          
+//        PARA USAR EL DIJKSTRA DE Dijkstra
+        Dijkstra caminito = new Dijkstra(grafo, 5);
+        caminito.dijksInit();
+	caminito.infinity(grafo.getNumVerts());
+	caminito.shorterPath(grafo.getNumVerts());
+	caminito.printPaths(grafo.getNumVerts());
+        caminito.Path(3);
     }
     
 }
