@@ -5,6 +5,8 @@
  */
 package proyecto1;
 
+import java.util.Arrays;
+
 public class Vertice {
     private String name;
     private Object[] element;
@@ -58,5 +60,10 @@ public class Vertice {
     
     public void asigVertice(int n){
         numVertice = n;
+    }
+
+    @Override
+    public String toString() {
+        return "Vertice{" + "name=" + name + ", element" + Arrays.toString(element) + ", numVertice=" + numVertice + '}';
     }
 }

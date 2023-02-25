@@ -5,8 +5,9 @@
  */
 package proyecto1;
 
-public class Grafo {
+import javax.swing.JOptionPane;
 
+public class Grafo {
     private int numVerts;
     private int MaxVerts;
     private Vertice [] verts;
@@ -23,7 +24,7 @@ public class Grafo {
             }
         }
         numVerts = 0;
-    }  
+    }
     
     public void nuevoVertice(Vertice nom) {
         boolean esta = numVertice(nom) >= 0;
@@ -50,12 +51,42 @@ public class Grafo {
         return (i < numVerts) ? i : -1;
     }
     
-    public int nuevoArco(Vertice a, Vertice b, int peso) throws Exception {
+    public Vertice vertice(int posicion){
+        if(posicion <= this.getNumVerts()){
+            Vertice v = this.getVerts()[posicion];
+            return v;
+        }
+        return null;
+    }
+    
+    public Vertice nombre_vertice(String name){
+        for (int i = 0; i < getNumVerts(); i++) {
+            if(verts[i].getName().equalsIgnoreCase(name)){
+                return verts[i];
+            }
+        }
+        return null;
+    }
+    
+        public String nombreVertice(Vertice vs) {
+        Vertice v = new Vertice(vs.getName(), vs.getElement());
+        boolean encontrado = false;
+        int i = 0;
+        for (; (i < numVerts) && !encontrado;) {
+            encontrado = verts[i].getName().equals(v.getName());
+            if (!encontrado) {
+                i++;
+            }
+        }
+        return (i < numVerts) ? vs.getName() : null;
+    }
+    
+    public int nuevoArco(Vertice a, Vertice b, int peso){
         int va,vb;
         va  = numVertice(a);
         vb = numVertice(b);
         if (va  < 0 || vb < 0) {
-            throw new Exception("Vértice no existe");
+            return -1;
         }
         matAd[va][vb] = peso;
         return peso;
@@ -119,10 +150,13 @@ public class Grafo {
         this.matAd = matAd;
     }
     
-    public void infinito(int nver){
-	for(int i=0;i<nver;i++)
-            for(int j=0;j<nver;j++)
-                if(this.getMatAd()[i][j]==0)
-   	            this.getMatAd()[i][j]=10000;
+    public Vertice searchVertice(String vertice_name){
+        for (int i = 0; i < verts.length; i++) {
+            if (verts[i].getName().equalsIgnoreCase(vertice_name)){
+                return verts[i];
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Vértice no encontrado");
+        return null;
     }
 }
