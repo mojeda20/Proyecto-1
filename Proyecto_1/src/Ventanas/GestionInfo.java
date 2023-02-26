@@ -4,17 +4,25 @@
  */
 package Ventanas;
 
+import static Ventanas.Principal.matriz;
+import proyecto_1.Stock_produc;
+import proyecto_1.Vertice;
+import proyecto_1.helpers;
+
 /**
  *
  * @author moise
  */
 public class GestionInfo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GestionInfo
-     */
-    public GestionInfo() {
+    public static Principal v1;
+    
+    public GestionInfo(Principal v1) {
         initComponents();
+        this.v1 = v1;
+        v1.setVisible(false);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
@@ -66,6 +74,11 @@ public class GestionInfo extends javax.swing.JFrame {
         jPanel1.add(Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 152, 190, 20));
 
         Agg_almacen.setText("Agg");
+        Agg_almacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Agg_almacenActionPerformed(evt);
+            }
+        });
         jPanel1.add(Agg_almacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         TITULO_AggProduct.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -91,9 +104,19 @@ public class GestionInfo extends javax.swing.JFrame {
         jPanel1.add(name_almacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 180, -1));
 
         Agg_product.setText("Agg");
+        Agg_product.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Agg_productActionPerformed(evt);
+            }
+        });
         jPanel1.add(Agg_product, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 290, -1, -1));
 
         Volver.setText("Volver");
+        Volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(Volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 460));
@@ -104,6 +127,32 @@ public class GestionInfo extends javax.swing.JFrame {
     private void name_almacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_name_almacenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_name_almacenActionPerformed
+
+    private void Agg_almacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agg_almacenActionPerformed
+        Vertice vertice = new Vertice(name_almacen.getText());
+        matriz.nuevoVertice(vertice);
+    }//GEN-LAST:event_Agg_almacenActionPerformed
+
+    private void Agg_productActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agg_productActionPerformed
+        helpers help = new helpers();
+        String name = name_product.getText();
+        int count = 0;
+        if(help.ValidarNumeros(cantidad_product.getText()) != -1){
+            Stock_produc stock1 = new Stock_produc(name,help.ValidarNumeros(cantidad_product.getText()));
+            for (int i = 0; i < matriz.getNumVerts(); i++) {
+                if(matriz.vertice(i).getName() == name_almacen.getText()){
+                    matriz.vertice(i).getElement().InsertarFinal(stock1);
+                    break;
+                }
+            }
+        }
+    }//GEN-LAST:event_Agg_productActionPerformed
+
+    private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
+        Principal ventana1= new Principal();
+        this.setVisible(false);
+        ventana1.setVisible(true);
+    }//GEN-LAST:event_VolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,7 +184,7 @@ public class GestionInfo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestionInfo().setVisible(true);
+                new GestionInfo(v1).setVisible(true);
             }
         });
     }

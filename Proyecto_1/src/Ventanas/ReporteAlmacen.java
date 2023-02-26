@@ -13,13 +13,14 @@ import proyecto_1.Lista;
  */
 public class ReporteAlmacen extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReporteAlmacen
-     */
-    public ReporteAlmacen() {
+    public static Principal v1;
+    
+    public ReporteAlmacen(Principal v1) {
         initComponents();
-        
+        this.v1 = v1;
+        v1.setVisible(false);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
@@ -101,9 +102,9 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
         // TODO add your handling code here:
-        Principal v1= new Principal();
+        Principal ventana1= new Principal();
         this.setVisible(false);
-        v1.setVisible(true);
+        ventana1.setVisible(true);
         
     }//GEN-LAST:event_volverActionPerformed
 
@@ -148,7 +149,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReporteAlmacen().setVisible(true);
+                new ReporteAlmacen(v1).setVisible(true);
             }
         });
     }

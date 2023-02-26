@@ -112,7 +112,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cargartxtActionPerformed
 
     private void recorridosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recorridosActionPerformed
-        ReporteAlmacen ventana= new ReporteAlmacen();
+        ReporteAlmacen ventana= new ReporteAlmacen(this);
         this.setVisible(false);
         ventana.setVisible(true);
     }//GEN-LAST:event_recorridosActionPerformed
