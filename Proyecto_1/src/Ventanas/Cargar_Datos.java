@@ -14,7 +14,9 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import proyecto_1.Funciones;
 import proyecto_1.Grafo;
+import proyecto_1.ListaSimple;
 import proyecto_1.Stock_produc;
 import proyecto_1.Vertice;
 import proyecto_1.helpers;
@@ -26,13 +28,15 @@ import proyecto_1.helpers;
 public class Cargar_Datos extends javax.swing.JFrame {
 
     public static Principal v1;
-    
+    public static Funciones func;
+    public static Grafo matriz;
+
     public Cargar_Datos(Principal v1) {
         initComponents();
         this.v1 = v1;
         v1.setVisible(false);
         this.setLocationRelativeTo(null);
-        this.setResizable(false);         
+        this.setResizable(false);
     }
 
     /**
@@ -101,113 +105,97 @@ public class Cargar_Datos extends javax.swing.JFrame {
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         this.setVisible(false);
         Principal ventana1 = new Principal();
-        ventana1.setVisible(true); 
+        ventana1.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
 
     private void Buscar_ArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ArchivoActionPerformed
         //Creo el Objeto JFileChooser
         JFileChooser fc = new JFileChooser();
-        
+
         //Creo el filtro
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.TXT", "txt");
-        
+
         //Le indico el filtro
         fc.setFileFilter(filtro);
-        
+
         //Abrimos la ventana, guardamos la op seleccionada por el usuario
         int seleccion = fc.showOpenDialog(this);
-        
+
         //Si el usario presiona aceptar
-        if(seleccion == JFileChooser.APPROVE_OPTION){
-            
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
             //Selecciono el fichero
             File fichero = fc.getSelectedFile();
-            
+
             //Escribir la ruta del fichero
             this.Ruta_Fichero.setText(fichero.getAbsolutePath());
-            
-            try(FileReader fr = new FileReader(fichero)){
+
+            try ( FileReader fr = new FileReader(fichero)) {
                 String cadena = "";
                 int valor = fr.read();
-                while(valor != -1){
+                while (valor != -1) {
                     cadena = cadena + (char) valor;
                     valor = fr.read();
                 }
                 this.Archivo_Cargado.setText(cadena);
-            }catch (IOException e1){
+            } catch (IOException e1) {
                 e1.printStackTrace();
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún archivo.");
         }
     }//GEN-LAST:event_Buscar_ArchivoActionPerformed
 
     private void cargar_grafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargar_grafoActionPerformed
         String archivo_txt = Archivo_Cargado.getText();
-        
         //Repleace pertinentes para poder realizar una funcion que descomponga en el txt
         String replace = archivo_txt.replaceAll("Rutas;", "&");
-        JOptionPane.showMessageDialog(null, replace);
-        
         String txt = replace.replaceAll("Almacenes;", "&");
-        JOptionPane.showMessageDialog(null, txt);
-        
+       
         //Descomponer el txt, de aquí hasta el final será el contendio de la funcion crear grafo a partir de un txt dado
         String[] info = txt.split("&");
-        JOptionPane.showMessageDialog(null, Arrays.toString(info));
         
         String[] info_almacenes = info[1].split(";");
         
         Grafo grafo = new Grafo(info_almacenes.length);
         helpers help = new helpers();
-        
-        //Crear el grafo
-        for (int i = 0; i < info_almacenes.length-1; i++) {
-            String[] almacen = info_almacenes[i].split(":");
+//
+//        //Crear el grafo
+        for (int i = 0; i < info_almacenes.length - 1; i++) {
+            String[] almacen = info_almacenes[i].split(":");           
             String name = almacen[0].replaceAll("\nAlmacen ", ""); //Nombre del vertice que se creará
-            
-            //Crear productos los cuales representaran el arreglo de objetos que contendrá el grafo
-            String[] productos = almacen[1].split("\n");
-            
+            String[] productos = almacen[1].split("\n");           //Productos del almacen
+
             //Crear el arreglo de objetos que contendrá el vertice
-            Stock_produc[] product = new Stock_produc[productos.length-1];
+            ListaSimple product = new ListaSimple();
             for (int j = 1; j < productos.length; j++) {
                 String[] info_produc = productos[j].split(",");
                 String nombre = info_produc[0];
                 int cantidad = help.ValidarNumeros(info_produc[1]);
-                
+
                 //Crear el objeto que irá al arreglo contenido en el vertice
                 Stock_produc stock1 = new Stock_produc(nombre, cantidad);
-                
+
                 //Agg el objeto al arreglo
-                product[j-1] = stock1;
+                product.InsertarInicio(stock1);
             }
-            
+
             //Crear el vertice con el nombre y el arreglo previamente creado
             Vertice v = new Vertice(name, product);
-
             //Meter el vertice en el grafo
             grafo.nuevoVertice(v);
-            JOptionPane.showMessageDialog(null, grafo.vertice(i).toString());
-            
         }
         
+        grafo.nuevoArco(grafo.vertice(0), grafo.vertice(1), 10);
+        grafo.nuevoArco(grafo.vertice(0), grafo.vertice(2), 20);
+        grafo.nuevoArco(grafo.vertice(1), grafo.vertice(2), 5);
+        grafo.nuevoArco(grafo.vertice(1), grafo.vertice(3), 8);
+        grafo.nuevoArco(grafo.vertice(2), grafo.vertice(3), 4);
+        grafo.nuevoArco(grafo.vertice(2), grafo.vertice(4), 13);
+        grafo.nuevoArco(grafo.vertice(3), grafo.vertice(4), 3);
+        grafo.nuevoArco(grafo.vertice(4), grafo.vertice(1), 25);
         
-        
-//        Crear las aristas luego de haber creado el grafo con sus vertices
-        String[] info_rutas = info[2].split("\n");
-        for (int i = 1; i < info_rutas.length; i++) {
-            String[] ruta = info_rutas[i].split(",");
-            String vertice1 = ruta[0].replaceAll(" ", "");
-            String vertice2 = ruta[1].replaceAll(" ", "");
-            int peso = help.ValidarNumeros(ruta[2]);
-            
-            Vertice vertice_1 = grafo.nombre_vertice(vertice1);
-            Vertice vertice_2 = grafo.nombre_vertice(vertice2);
-            
-            JOptionPane.showMessageDialog(null, vertice_1.toString());
-            JOptionPane.showMessageDialog(null, vertice_2.toString());
-        }
+        matriz = grafo;
     }//GEN-LAST:event_cargar_grafoActionPerformed
 
     /**
