@@ -13,8 +13,9 @@ import proyecto_1.Grafo;
  */
 public class Principal extends javax.swing.JFrame {
 
-    public static Grafo grafo;
     public static Funciones func;
+    public static Grafo matriz;
+
     
     public Principal() {
         initComponents();
@@ -64,12 +65,22 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(cargartxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
 
         gestion_info.setText("Gestion de Info.");
+        gestion_info.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gestion_infoActionPerformed(evt);
+            }
+        });
         jPanel1.add(gestion_info, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
 
         realizar_pedido.setText("Realizar Pedido");
         jPanel1.add(realizar_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
 
         recorridos.setText("Disponibilidad");
+        recorridos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recorridosActionPerformed(evt);
+            }
+        });
         jPanel1.add(recorridos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 110, -1));
 
         mostrar_grafo.setText("Mostrar Grafo");
@@ -99,6 +110,16 @@ public class Principal extends javax.swing.JFrame {
         Cargar_Datos v2 = new Cargar_Datos(this);
         v2.setVisible(true);
     }//GEN-LAST:event_cargartxtActionPerformed
+
+    private void recorridosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recorridosActionPerformed
+        ReporteAlmacen ventana= new ReporteAlmacen();
+        this.setVisible(false);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_recorridosActionPerformed
+
+    private void gestion_infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestion_infoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gestion_infoActionPerformed
 
     /**
      * @param args the command line arguments

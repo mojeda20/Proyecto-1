@@ -5,6 +5,7 @@
 package Ventanas;
 
 import static Ventanas.Principal.func;
+import static Ventanas.Principal.matriz;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,8 +29,6 @@ import proyecto_1.helpers;
 public class Cargar_Datos extends javax.swing.JFrame {
 
     public static Principal v1;
-    public static Funciones func;
-    public static Grafo matriz;
 
     public Cargar_Datos(Principal v1) {
         initComponents();

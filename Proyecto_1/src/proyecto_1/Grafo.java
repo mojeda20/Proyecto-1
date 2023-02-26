@@ -28,9 +28,6 @@ public class Grafo {
         }
         numVerts = 0;
     }
-
-    public Grafo() {
-    }
     
     public void nuevoVertice(Vertice nom) {
         boolean esta = numVertice(nom) >= 0;
@@ -65,19 +62,16 @@ public class Grafo {
         return null;
     }
     
-    public Vertice name_Vertice(String name){
-        boolean encontrado = false;
-        for (int i = 0; i < numVerts; i++) {
-            String nameVert = verts[i].getName();
-            if(nameVert.equalsIgnoreCase(name)){
+    public Vertice nombre_vertice(String name){
+        for (int i = 0; i < getNumVerts(); i++) {
+            if(verts[i].getName().equalsIgnoreCase(name)){
                 return verts[i];
             }
         }
-        
         return null;
     }
     
-    public String nombreVertice(Vertice vs) {
+        public String nombreVertice(Vertice vs) {
         Vertice v = new Vertice(vs.getName(), vs.getElement());
         boolean encontrado = false;
         int i = 0;
@@ -159,40 +153,131 @@ public class Grafo {
         this.matAd = matAd;
     }
     
-    public int numVertice(String vs) {
-        Vertice v = new Vertice(vs);
-        boolean encontrado = false;
+    
+        //Método  para encontrar el numero del vertice
+    
+    public int numeroVertice(String string){
+        
+        boolean vertEncontrado= false;
+        Vertice vertice= new Vertice(string);
         int i = 0;
-        for (; (i < this.getNumVerts()) && !encontrado;) {
-            encontrado = verts[i].equals(v);
-
-            if (!encontrado) {
+        for (; i < this.getNumVerts() && !vertEncontrado;) {
+            vertEncontrado= verts[i].equals(vertice);
+            if (!vertEncontrado){
                 i++;
             }
+         
+            
         }
-        return (i < getNumVerts()) ? i : -1;
+        if (i< getNumVerts()){
+            return i;   
+        }else{
+            return -1;
+        }
+   
     }
     
-    public void newEdge(String a, String b, int peso) {
-        int va,
-         vb;
-        va  = numVertice(a);
-        vb = numVertice(b);
-        if (va  < 0 || vb < 0) {
-            JOptionPane.showMessageDialog(null, "El vertice no existe");
-        } else {
-            this.matAd[va][vb] = peso;
+    
+    //Metodo para obtener los vertices que no han sido visitados
+    
+    public int VerticesNoVisitados(int vert){
+        
+        for (int j = 0; j < getNumVerts(); j++) {
+            if(matAd[vert][j]!=0 && !verts[j].isFueVisitado()){
+                return j;
+            }  
         }
-
+        return -1;
     }
     
-    public Vertice searchVertice(String vertice_name){
-        for (int i = 0; i < verts.length; i++) {
-            if (verts[i].getName().equalsIgnoreCase(vertice_name)){
-                return verts[i];
+    
+    
+    public Lista Dfs(Grafo matriz, String name){
+        
+        Lista vis= new Lista();
+        int v= matriz.numeroVertice(name);
+        
+        if (v<0){
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el vertice. Verifique que exista.");
+            return vis;
+        } else{
+            matriz.verts[v].setFueVisitado(true);
+            int u= matriz.VerticesNoVisitados(v);
+            if(u!=-1 && !matriz.verts[u].isFueVisitado()){
+                Dfs(matriz, (String) matriz.verts[u].getName());
             }
+            
+            for (int i = 0; i < matriz.getNumVerts(); i++) {
+                if(matriz.verts[i].isFueVisitado()){
+                    NodoLista nodo= new NodoLista(matriz.verts[i]);
+                    vis.insertar_nl(nodo);
+                }
+                
+            }
+            
+            for (int i = 0; i < matriz.getNumVerts(); i++) {
+                
+                if (!matriz.verts[i].isFueVisitado()){
+                    Dfs(matriz, matriz.verts[i].getName());
+                }
+                
+            }
+            
+            return vis;
         }
-        JOptionPane.showMessageDialog(null, "Vértice no encontrado");
+        
+    }
+    
+        //Recorrido del grafo por Breadth-first search
+    
+    public Lista Bfs(Grafo matriz, String name){
+        
+        int n1, n2;
+        
+        int clave= 100;
+        
+        int[] est_aux;
+        
+        Lista a = new Lista();
+        
+        n2= matriz.numeroVertice(name);
+        
+        if (n2>0){
+            
+            Cola colita = new Cola();
+            est_aux= new int[matriz.getNumVerts()];
+            for (int i=0; i< matriz.getNumVerts(); i++){
+                est_aux[i]= clave;
+            }
+            
+            est_aux[n2]=0;
+            
+            colita.encolar(n2);
+            
+            while(!colita.isEmpty()){
+                Integer cw;
+                cw = colita.desencolar();
+                n1= cw;
+                System.out.println(matriz.verts[n1]+ "fue visitado.");
+                
+                n1 = cw;
+                NodoLista nodo = new NodoLista(matriz.verts[n1]);
+                a.insertar_nl(nodo);
+                for (int u = 0; u < matriz.getNumVerts(); u++) {
+                    if ((matriz.getMatAd()[n1][u] != 0) && (est_aux[u] == clave) && (matriz.verts[n1] != null)) {
+                        est_aux[u] = est_aux[n1] + 1;
+                        colita.encolar(u);
+                    }
+                }
+            }
+            return a;
+        }
         return null;
     }
+
+    
+    
+    
+    
+    
 }
