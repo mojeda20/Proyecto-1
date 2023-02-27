@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto1;
+package proyecto_1;
 
 public class Dijkstra {
     int[] distances;
@@ -12,12 +12,12 @@ public class Dijkstra {
     int[][]grafo;
     int origin;
 
-    public Dijkstra(Grafo grafo, int origin) {
+    public Dijkstra(Grafo grafo, Vertice origin) {
         this.distances = new int[grafo.getNumVerts()];
         this.route = new int[grafo.getNumVerts()];
         this.visited = new boolean[grafo.getNumVerts()];
         this.grafo = grafo.getMatAd();
-        this.origin = origin-1;
+        this.origin = origin.getNumVertice();
     }
       
     /*Inicializa los valores de los arreglos con respecto al origen*/
@@ -99,10 +99,18 @@ public class Dijkstra {
     }
     
     /*Recibe un vértice destino y muestra solo la ruta y la distancia para llegar hasta ese vértice*/
-    public void Path(int destiny){
-        System.out.println("\nCamino más corto para llegar al vértice "+(destiny));
+    public void Path(Vertice destiny){
+        System.out.println("\nCamino más corto para llegar al vértice "+(destiny.getName()));
         System.out.print("\t Desde "+(origin+1)+ " -->");
-        returnPath(destiny-1);
-        System.out.print(" = "+distances[destiny-1]+"\n");
+        returnPath(destiny.getNumVertice());
+        System.out.print(" = "+distances[destiny.getNumVertice()]+"\n");
+    }
+    
+    public void masCercano(int nver){
+        System.out.print("El vértice más cercano es: ");
+        for (int i = 0; i < nver-1; i++) {
+            returnPath(i);
+            
+        }
     }
 }    

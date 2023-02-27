@@ -3,31 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto1;
+package proyecto_1;
 
 import java.util.Arrays;
 
 public class Vertice {
     private String name;
-    private Object[] element;
+    private ListaSimple element;
     private int numVertice;
+    private boolean fueVisitado;
 
     public Vertice(String name, int cantElement) {
         this.name = name;
-        this.element = new Object[cantElement];
+        this.element = new ListaSimple();
         this.numVertice = -1;
+        this.fueVisitado = false;
     }
     
-    public Vertice(String name, Object[] element) {
+    public Vertice(String name, ListaSimple element) {
         this.name = name;
         this.element = element;
         this.numVertice = -1;
+        this.fueVisitado = false;
     } 
     
     public Vertice(String name) {
         this.name = name;
         this.element = null;
         this.numVertice = -1;
+        this.fueVisitado = false;
     }
 
     public String getName() {
@@ -38,11 +42,11 @@ public class Vertice {
         this.name = name;
     }
 
-    public Object[] getElement() {
+    public ListaSimple getElement() {
         return element;
     }
 
-    public void setElement(Object[] element) {
+    public void setElement(ListaSimple element) {
         this.element = element;
     }
 
@@ -61,9 +65,17 @@ public class Vertice {
     public void asigVertice(int n){
         numVertice = n;
     }
+    
+    public boolean isFueVisitado() {
+        return fueVisitado;
+    }
+
+    public void setFueVisitado(boolean fueVisitado) {
+        this.fueVisitado = fueVisitado;
+    }
 
     @Override
     public String toString() {
-        return "Vertice{" + "name=" + name + ", element" + Arrays.toString(element) + ", numVertice=" + numVertice + '}';
+        return "Vertice{" + "name=" + getName() + ", element: " + getElement().Transformar() + ", numVertice=" + getNumVertice() + '}'+"\n";
     }
 }
