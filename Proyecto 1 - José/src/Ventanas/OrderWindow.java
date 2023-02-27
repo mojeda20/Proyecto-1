@@ -10,7 +10,10 @@ import proyecto_1.Vertice;
 import proyecto_1.ListaSimple;
 import proyecto_1.Nodo;
 import static Ventanas.Principal.matriz;
+import javax.swing.JOptionPane;
 import proyecto_1.Funciones;
+import proyecto_1.Stock_produc;
+import proyecto_1.helpers;
 
 public class OrderWindow extends javax.swing.JFrame {
 
@@ -120,16 +123,30 @@ public class OrderWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_showProductsActionPerformed
 
     private void OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderActionPerformed
-//        if (matriz.searchVertice(vertex.getText()) != null){
-//            Vertice origin = matriz.searchVertice(vertex.getText());
-//            ListaSimple productos = origin.getElement();
-//            Nodo pointer = productos.getpFirst();
-//            while (pointer.getDato().getName != nameProduct.getText()){
-//                pointer = pointer.getPnext();
-//            }
-//            Stock_produc = pointer;
-//            int cantidad = Stock_produc.
-//        }
+        helpers help = new helpers();
+        ListaSimple list = new ListaSimple();
+        ListaSimple lista = new ListaSimple();
+        for (int i = 0; i < matriz.getNumVerts(); i++) {
+             ListaSimple list2 = (ListaSimple) matriz.vertice(i).getElement();
+             int cont = 0;
+             while(list2.getSize() > cont){
+                Stock_produc product = (Stock_produc) list2.getValor(cont);
+                String namePro = product.getName();
+                list.InsertarFinal(namePro);
+                cont++;
+             }
+            
+        }
+        for (int i = 0; i < matriz.getNumVerts(); i++) {
+            String name = matriz.vertice(i).getName();
+            lista.InsertarFinal(name);
+        }
+        if (!list.buscar(nameProduct.getText()) || help.ValidarNumeros(quantityProduct.getText()) == -1 || !lista.buscar(vertex.getText())){
+            JOptionPane.showMessageDialog(null, "Opción errónea");
+        } else{
+//            Funcion de RealizarPedido()
+        }
+        
     }//GEN-LAST:event_OrderActionPerformed
 
     private void vertexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vertexActionPerformed
