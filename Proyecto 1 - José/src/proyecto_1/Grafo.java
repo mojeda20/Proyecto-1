@@ -1,15 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package proyecto_1;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author moise
- */
 public class Grafo {
     private int numVerts;
     private int MaxVerts;
@@ -275,7 +272,16 @@ public class Grafo {
         return null;
     }
     
-        public int numVertice(String vs) {
+    public String showProducts(){
+        String info = "";
+        for (int i = 0; i < verts.length; i++) {
+            Vertice current_vertex = verts[i];
+            info += current_vertex.toString();
+        }
+        return info;
+    }
+    
+    public int numVertice(String vs) {
         Vertice v = new Vertice(vs);
         boolean encontrado = false;
         int i = 0;

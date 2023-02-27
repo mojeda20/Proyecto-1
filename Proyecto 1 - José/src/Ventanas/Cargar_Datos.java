@@ -185,19 +185,23 @@ public class Cargar_Datos extends javax.swing.JFrame {
             grafo.nuevoVertice(v);
         }
         String[] rutas = info[2].split(";");
-        for (int i = 0; i < rutas.length; i++) {
-            String[] ruta = rutas[i].split(",");
+        for (int i = 0; i < rutas.length-1; i++) {
+            if (i > 0) {
+                String[] ruta = rutas[i].split(",");
 
-            grafo.newEdge(ruta[0], ruta[1], help.ValidarNumeros(ruta[2]));
+                grafo.newEdge(ruta[0], ruta[1], Integer.parseInt(ruta[2]));
+            }
         }
+        grafo.nuevoArco(grafo.vertice(0), grafo.vertice(1), 10);
+        grafo.nuevoArco(grafo.vertice(0), grafo.vertice(2), 20);
+        grafo.nuevoArco(grafo.vertice(1), grafo.vertice(2), 5);
+        grafo.nuevoArco(grafo.vertice(1), grafo.vertice(3), 8);
+        grafo.nuevoArco(grafo.vertice(2), grafo.vertice(3), 4);
+        grafo.nuevoArco(grafo.vertice(2), grafo.vertice(4), 13);
+        grafo.nuevoArco(grafo.vertice(3), grafo.vertice(4), 3);
+        grafo.nuevoArco(grafo.vertice(4), grafo.vertice(1), 25);
         
         matriz = grafo;
-        
-        try {
-            System.out.println(matriz.devolverPeso(matriz.vertice(0), matriz.vertice(1)));
-        } catch (Exception ex) {
-            Logger.getLogger(Cargar_Datos.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_cargar_grafoActionPerformed
 
     /**
